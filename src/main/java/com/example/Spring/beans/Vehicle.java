@@ -1,13 +1,22 @@
 package com.example.Spring.beans;
 
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+import com.example.Spring.services.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component(value = "vehicleBean")
 public class Vehicle {
-    private String name;
+    private String name ="Bugati";
+    private final VehicleService vehicleService;
+
+
+
+    @Autowired
+    public Vehicle(VehicleService vehicleService){
+        this.vehicleService = vehicleService;
+    }
+
 
     public String getName() {
         return name;
@@ -17,17 +26,27 @@ public class Vehicle {
         this.name = name;
     }
 
-    @PostConstruct
-    public void initialze(){
-        this.name = "Aravind";
-        printhello();
+    public VehicleService getVehicleService() {
+        return vehicleService;
     }
-    @PreDestroy
-    public void destroy(){
-        System.out.println("the bean is going to destroy  ...... DESTROYED");
-    }
+//    @PostConstruct
+//    public void initialze(){
+//        this.name = "Aravind";
+//        printhello();
+//    }
+//    @PreDestroy
+//    public void destroy(){
+//        System.out.println("the bean is going to destroy  ...... DESTROYED");
+//    }
 
     public void printhello(){
         System.out.println("Hai "+getName());
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
